@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>生活物资管理</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="ios-header">
+    <h1>物资管理</h1>
+</header>
+
+<div class="search-container">
+    <div class="search-wrapper">
+        <i data-lucide="search" class="search-icon"></i>
+        <input id="searchInput" type="text" placeholder="搜索物资名称..." oninput="searchItems()">
+        <button id="clearSearch" class="clear-search-btn" onclick="clearSearch()">
+            <i data-lucide="x-circle"></i>
+        </button>
+    </div>
+</div>
+
+<div class="items-container" id="itemsContainer">
+    <div class="empty-state" id="emptyState">
+        <div class="empty-icon-wrapper">
+            <i data-lucide="package-open" class="empty-icon"></i>
+        </div>
+        <p class="empty-title">暂无物资</p>
+        <p class="empty-subtitle">点击下方 + 按钮添加</p>
+    </div>
+</div>
+
+<div class="floating-wrapper">
+    <div id="capsule" class="capsule-nav">
+        <button id="categoryBtn" class="nav-btn active">
+            <i data-lucide="grid-2x2"></i>
+            <span>分类</span>
+        </button>
+        <button class="nav-btn extra-btn" data-category="food">
+            <i data-lucide="apple"></i>
+            <span>食品</span>
+        </button>
+        <button class="nav-btn extra-btn" data-category="daily">
+            <i data-lucide="package"></i>
+            <span>日用品</span>
+        </button>
+        <button class="nav-btn extra-btn" data-category="medicine">
+            <i data-lucide="pill"></i>
+            <span>药品</span>
+        </button>
+    </div>
+
+    <button class="action-btn" onclick="openAddModal()">
+        <div class="action-btn-icon">
+            <i data-lucide="plus"></i>
+        </div>
+    </button>
+</div>
+
+<!-- 添加物资弹窗 -->
+<div class="modal" id="addModal">
+    <div class="modal-backdrop" onclick="closeModal()"></div>
+    <div class="modal-content">
+        <div class="modal-handle"></div>
+        <h2>添加物资</h2>
+        <form id="addForm">
+            <div class="form-group">
+                <label>名称</label>
+                <input id="itemName" type="text" placeholder="请输入物资名称" required>
+            </div>
+
+            <div class="form-group">
+                <label>分类</label>
+                <select id="itemCategory">
+                    <option value="food">食品</option>
+                    <option value="daily">日用品</option>
+                    <option value="medicine">药品</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>保质期至</label>
+                <input id="itemExpiry" type="date" required>
+            </div>
+
+            <div class="row-group">
+                <div class="form-group">
+                    <label>数量</label>
+                    <input type="number" id="itemQuantity" min="1" value="1" required>
+                </div>
+                <div class="form-group">
+                    <label>单位</label>
+                    <input id="itemUnit" placeholder="件/包/瓶" required>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="cancel-btn" onclick="closeModal()">取消</button>
+                <button type="submit" class="submit-btn">保存</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 编辑物资弹窗 -->
+<div class="modal" id="editModal">
+    <div class="modal-backdrop" onclick="closeEditModal()"></div>
+    <div class="modal-content">
+        <div class="modal-handle"></div>
+        <h2>编辑物资</h2>
+        <form id="editForm">
+            <div class="form-group">
+                <label>名称</label>
+                <input id="editItemName" type="text" placeholder="请输入物资名称" required>
+            </div>
+
+            <div class="form-group">
+                <label>分类</label>
+                <select id="editItemCategory">
+                    <option value="food">食品</option>
+                    <option value="daily">日用品</option>
+                    <option value="medicine">药品</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>保质期至</label>
+                <input id="editItemExpiry" type="date" required>
+            </div>
+
+            <div class="row-group">
+                <div class="form-group">
+                    <label>数量</label>
+                    <input type="number" id="editItemQuantity" min="1" value="1" required>
+                </div>
+                <div class="form-group">
+                    <label>单位</label>
+                    <input id="editItemUnit" placeholder="件/包/瓶" required>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="delete-btn" onclick="deleteItemFromEdit()">删除</button>
+                <button type="button" class="cancel-btn" onclick="closeEditModal()">取消</button>
+                <button type="submit" class="submit-btn">保存</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Toast 提示 -->
+<div class="toast" id="toast">
+    <i data-lucide="check-circle-2" class="toast-icon"></i>
+    <span class="toast-text"></span>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
