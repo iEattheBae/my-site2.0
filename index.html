@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <title>生活物资管理</title>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1a1a1e">
+    <title>物资管理</title>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -23,9 +24,12 @@
             <i data-lucide="x-circle"></i>
         </button>
     </div>
+    <button id="viewToggle" class="view-toggle-btn" onclick="toggleView()" aria-label="切换视图">
+        <i data-lucide="layout-grid"></i>
+    </button>
 </div>
 
-<div class="items-container" id="itemsContainer">
+<div class="items-container" id="itemsContainer" data-view="grid">
     <div class="empty-state" id="emptyState">
         <div class="empty-icon-wrapper">
             <i data-lucide="package-open" class="empty-icon"></i>
